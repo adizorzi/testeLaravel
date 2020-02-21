@@ -10,7 +10,18 @@ $(".deletar").click(function(){
     $('.modal-form').attr('action', action);
 })
 
+$('.tipo').click(function(){
+    console.log('asdf')
+    if($(this).val() == 'F'){
+        $('.tipo-fisica').show();
+    }else{
+        $('.tipo-fisica').hide();
+    }
+})
+
 $(document).ready( function () {
+    $('input:radio:checked').trigger('click');
+    
     $('.table-class').DataTable({
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",

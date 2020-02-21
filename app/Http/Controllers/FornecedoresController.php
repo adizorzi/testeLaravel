@@ -45,7 +45,8 @@ class FornecedoresController extends Controller
 
         $validator = Validator::make($values, $rules);
         $request->session()->put('idempresa', $values['idempresa']);
-        $this->maior18($validator, $values);
+        if($tipo == 'F')
+            $this->maior18($validator, $values);
 
         if($validator->fails()){
             return redirect()->back()
@@ -101,7 +102,8 @@ class FornecedoresController extends Controller
         }
         $validator = Validator::make($values, $rules);
         $request->session()->put('idempresa', $values['idempresa']);
-        $this->maior18($validator, $values);
+        if($tipo == 'F')
+            $this->maior18($validator, $values);
         
         if($validator->fails()){
             return redirect()->back()

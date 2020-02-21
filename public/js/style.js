@@ -103,7 +103,17 @@ $(".deletar").click(function () {
   console.log(action);
   $('.modal-form').attr('action', action);
 });
+$('.tipo').click(function () {
+  console.log('asdf');
+
+  if ($(this).val() == 'F') {
+    $('.tipo-fisica').show();
+  } else {
+    $('.tipo-fisica').hide();
+  }
+});
 $(document).ready(function () {
+  $('input:radio:checked').trigger('click');
   $('.table-class').DataTable({
     "language": {
       "sEmptyTable": "Nenhum registro encontrado",
@@ -147,7 +157,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\resources\js\style.js */"./resources/js/style.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\testeLaravel\resources\js\style.js */"./resources/js/style.js");
 
 
 /***/ })

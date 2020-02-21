@@ -27,10 +27,10 @@
                                 <label for="tipoempresa">{{ __('Tipo') }}</label>
                                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary active">
-                                    <input type="radio" name="tipoempresa" value="F" id="option1" checked> Física
+                                    <input type="radio" name="tipoempresa" class="tipo" {{old('tipoempresa') == 'F' ? 'checked' : ''}} value="F"  id="option1" {{!old('tipoempresa') ? 'checked' : ''}}> Física
                                 </label>
                                 <label class="btn btn-secondary">
-                                    <input type="radio" name="tipoempresa" value="J" id="option3"> Jurídica
+                                    <input type="radio" name="tipoempresa" class="tipo" {{old('tipoempresa') == 'J' ? 'checked' : ''}} value="J" id="option3"> Jurídica
                                 </label>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 tipo-fisica">
                                 <label for="rg">{{ __('RG') }}</label>
                                 <input id="rg" type="text" class="form-control @error('rg') is-invalid @enderror" value="{{ old('rg') }}" name="rg" autocomplete="current-rg">
 
@@ -58,7 +58,7 @@
                                 @enderror
                             </div>
                         
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 tipo-fisica">
                                 <label for="datanascimento">{{ __('Data nascimento') }}</label>
                                 <input id="datanascimento" type="date" class="form-control @error('datanascimento') is-invalid @enderror" value="{{ old('datanascimento') }}" name="datanascimento" autocomplete="current-datanascimento">
 

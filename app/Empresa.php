@@ -12,4 +12,14 @@ class Empresa extends Model
         'nomefantasia',
         'cnpj',
     ];
+
+    public function fornecedor()
+    {
+        return $this->belongsTo('App\Empresa', 'id');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo('App\Estado', 'uf');
+    }
 }

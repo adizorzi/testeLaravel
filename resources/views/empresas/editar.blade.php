@@ -8,13 +8,13 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('empresas') }}">
+                    <form method="POST" action="{{ url('empresas/update/'.$empresa->id) }}">
                         @csrf
 
                         <div class="form-group row">
                             <div class="offset-md-2 col-md-8">
                                 <label for="nomefantasia">{{ __('Nome fantasia') }}</label>
-                                <input id="nomefantasia" type="text" class="form-control @error('nomefantasia') is-invalid @enderror" name="nomefantasia" value="{{ old('nomefantasia') }}" autocomplete="nomefantasia" autofocus>
+                                <input id="nomefantasia" type="nomefantasia" class="form-control @error('nomefantasia') is-invalid @enderror" name="nomefantasia" value="{{ old('nomefantasia') ? : $empresa->nomefantasia }}" required autocomplete="nomefantasia" autofocus>
 
                                 @error('nomefantasia')
                                     <span class="invalid-feedback" role="alert">
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="offset-md-2 form-group col-md-5">
                                 <label for="cnpj">{{ __('CNPJ') }}</label>
-                                <input id="cnpj" type="text" class="form-control @error('cnpj') is-invalid @enderror" value="{{ old('cnpj') }}" name="cnpj" autocomplete="current-cnpj">
+                                <input id="cnpj" type="cnpj" class="form-control @error('cnpj') is-invalid @enderror" value="{{ old('cnpj') ? : $empresa->cnpj }}" name="cnpj" required autocomplete="current-cnpj">
 
                                 @error('cnpj')
                                     <span class="invalid-feedback" role="alert">
@@ -38,9 +38,14 @@
                                 <label for="uf">{{ __('Estado') }}</label>
                                 <select name="uf" id=""  class="form-control @error('uf') is-invalid @enderror">
                                     @foreach($estados as $estado)
-                                        <option value="{{$estado->id}}">{{$estado->prefixo}}</option>
+                                        @if($estado->id == $empresa->uf)
+                                            <option selected value="{{$estado->id}}">{{$estado->prefixo}}</option>
+                                        @else
+                                            <option value="{{$estado->id}}">{{$estado->prefixo}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
+                                
                                 @error('uf')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -53,7 +58,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Salvar') }}
                                 </button>
-                                <a href="{{url('empresas')}}" class="btn btn-warning">Voltar</a>
                             </div>
                         </div>
                     </form>

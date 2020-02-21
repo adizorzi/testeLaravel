@@ -17,5 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('empresas', 'EmpresasController');
+Route::get('/', 'EmpresasController@index');
+Route::prefix('empresas')->group(function(){
+    Route::get('/', 'EmpresasController@index');
+    Route::get('/criar', 'EmpresasController@novo');
+    Route::post('/', 'EmpresasController@criar');
+    Route::get('/editar/{id}', 'EmpresasController@editar');
+    Route::post('/update/{id}', 'EmpresasController@update');
+    Route::post('/delete/{id}', 'EmpresasController@delete');
+	
+	Route::prefix('/{id}/fornecedores')->group(function(){
+        Route::get('/', 'FornecedoresController@index');
+		Route::get('/criar', 'FornecedoresController@novo');
+        Route::post('/', 'FornecedoresController@criar');
+        Route::get('/editar/{idf}', 'FornecedoresController@editar');
+        Route::post('/update/{idf}', 'FornecedoresController@update');
+        Route::post('/delete/{idf}', 'FornecedoresController@delete');
+	});
+});

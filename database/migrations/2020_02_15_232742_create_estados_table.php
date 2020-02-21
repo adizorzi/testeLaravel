@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFornecedorsTable extends Migration
+class CreateEstadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateFornecedorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fornecedors', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('idempresa');
-            $table->string('nome', 150);
-            $table->string('tipoempresa', 1);
-            $table->string('documento', 20);
-            $table->date('datanascimento')->nullable();
-            $table->string('rg', 15)->nullable();
+            $table->string('descricao', 150);
+            $table->string('prefixo', 2);
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateFornecedorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fornecedors');
+        Schema::dropIfExists('estados');
     }
 }

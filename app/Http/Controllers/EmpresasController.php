@@ -3,36 +3,74 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 use App\Empresa;
+use App\Estado;
 
 class EmpresasController extends Controller
 {
+    private $rules = [
+        'uf' => 'required|max:2',
+        'nomefantasia' => 'required',
+        'cnpj' => 'required|formato_cnpj',
+    ];
+
     public function index()
     {
         $empresas = Empresa::all();
+        return view('empresas.listar', compact('empresas'));
     }
 
-    public function create()
+    public function novo()
     {
-        return view('empresas.criar');
+        $estados = Estado::all();
+        return view('empresas.criar', compact('estados'));
     }
     
-    public function store(Request $requect)
+    public function criar(Request $requect)
     {
-        dd($requect->all());
+        $values =  $requect->all();
+        $validator = Validator::make($values, $this->rules);
+        if($validator->fails()){
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $empresa = new Empresa($values);
+        $empresa->save();
+
+        return redirect('empresas')->with('success', 'Empresa salva com sucesso!');
     }
 
-    public function edit(Request $requect)
+    public function editar($id)
     {
-        dd('store');
+        $empresa = Empresa::find($id);
+        $estados = Estado::all();
+        return view('empresas.editar', compact('empresa', 'estados'));
     }
-    public function update(Request $requect)
+    public function update(Request $requect, $id)
     {
-        dd('store');
+        $values = $requect->all();
+        $validator = Validator::make($values, $this->rules);
+        if($validator->fails()){
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $empresa = Empresa::find($id);
+        $empresa->fill($values);
+        $empresa->save();
+
+        return redirect('empresas')->with('success', 'Empresa salva com sucesso!');
     }
 
-    public function delete(Request $requect)
+    public function delete(Request $requect, $id)
     {
-        dd('store');
+        $empresa = Empresa::find($id);
+        $empresa->delete();
+
+        return redirect()->back()->with("success", 'Empresa deletada!');
     }
 }
